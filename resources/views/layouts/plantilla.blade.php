@@ -4,13 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Página web de ADALA') }}</title>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    <!-- Styles / Scripts -->
+    <!-- Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
@@ -22,23 +24,10 @@
 
 <body class="w-full h-full">
     @include('layouts.nav')
-    <section class="relative h-[60vh] bg-cover bg-center bg-no-repeat" style="background-image: url({{ asset('img/Captura.PNG') }});">
-        <!-- Overlay oscuro -->
-        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-        <!-- Contenido centrado -->
-        <div class="relative flex flex-col items-center justify-center h-full text-white text-center px-4 ">
-            <h1 class="text-4xl font-bold">ADALA</h1>
-            <p class="text-lg mt-2 max-w-2xl">
-                ASOCIACIÓN EN PRO DE LAS PERSONAS CON DISCAPACIDAD INTELECTUAL O DEL DESARROLLO DE ALAMEDA
-            </p>
-        </div>
-    </section>
 
-    @if (Route::has('login'))
-        <div class="h-14.5 hidden lg:block"></div>
-    @endif
-
-    <x-footer/>
+    <div class="w-full sm:max-w-md mt-6 pt-20 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+        {{ $slot }}
+    </div>
+    <x-footer />
 </body>
-
 </html>
